@@ -254,8 +254,8 @@ $ git add .
 $ git commit -m "first commit"
 $ git branch -M main
 $ git remote add origin git@github.com:sxh12138/AboutLearing.git
+$ git push -u origin main --force
 $ git branch --set-upstream-to=origin/main main
-$ git push -u origin main
 ```
 
 # 七、安装 Python
