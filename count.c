@@ -89,7 +89,7 @@ int main(){
 
         findAllDirs(path);
 
-        printf("You have written a total of %ld Line of code！\n\n", total);
+        printf("You have written a total of %ld Line of code！\n", total);
 
         return 0;
 }
