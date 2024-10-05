@@ -1,0 +1,99 @@
+# 忽略编译产生的文件
+*.o
+*.out
+*.exe
+*.dll
+*.so
+*.dylib
+
+# 忽略构建目录
+build/
+target/
+dist/
+__pycache__/
+.venv/
+venv/
+env/
+env.bak/
+
+# 忽略日志文件
+*.log
+
+# 忽略编译器特定的文件
+*.ncb
+*.sdf
+*.suo
+*.ipch
+*.o
+*.obj
+*.a
+*.pdb
+*.ilk
+
+# 忽略IDE产生的文件
+*.user
+*.bak
+*.swp
+*.swo
+*.swn
+*.viminfo
+
+# 忽略系统文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 忽略Python临时文件
+*.pyc
+*.pyo
+*.pyd
+
+# 忽略pip安装的文件
+__pypackages__/
+*.egg-info/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# 忽略编辑器的配置文件
+.vscode/
+.idea/
+*.iml
+
+# 忽略node_modules目录
+node_modules/
+
+# 忽略Yarn的配置文件
+.yarn-cache/
+.npm
+
+# 忽略Docker配置文件
+.dockerignore
+
+# 忽略数据库文件
+*.db
+*.sqlite
+
+# 忽略配置文件
+*.config
+*.cfg
+*.ini
+
+# 忽略临时文件
+*.tmp
+*.temp
+*.bak2
+
+# 忽略macOS的文件
+.AppleDouble
+.LSOverride
+
+# 忽略Windows的文件
+"$RECYCLE.BIN/"
+
+# 忽略Windows的系统文件
+Thumbs.db
+ehthumbs_vista.db

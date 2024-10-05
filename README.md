@@ -261,7 +261,7 @@ $ git branch --set-upstream-to=origin/main main
 # 七、安装 Python
 
 ```shell
-$ wget https://www.python.org/ftp/python/3.12.6/Python-3.12.6.tar.xz && tar -xvf Python-3.12.6.tar.xz && rm -rf *.tar.xz && cd Python-3.12.6
+$ wget https://www.python.org/ftp/python/3.11.9/Python-3.11.9.tar.xz && tar -xvf Python-3.11.9.tar.xz && rm -rf *.tar.xz && cd Python-3.11.9
 $ sudo ./configure && sudo make -j 4 && sudo make install
 $ sudo ln -s /usr/local/bin/python3 /usr/local/bin/python
 ```
