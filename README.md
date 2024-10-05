@@ -241,7 +241,7 @@ $ .\Arch.exe config --default-user sxh
 [sxh@sxh ~]$ sudo pacman-key --populate
 [sxh@sxh ~]$ sudo pacman -Syy archlinux-keyring
 [sxh@sxh ~]$ sudo pacman -Syyu
-[sxh@sxh ~]$ sudo pacman -S git openssh base-devel cmake tree which unzip wget
+[sxh@sxh ~]$ sudo pacman -S git openssh base-devel gdb cmake tree which unzip wget
 ```
 
 # 六、Code
