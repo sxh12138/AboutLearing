@@ -10,7 +10,7 @@ $ winget install JanDeDobbeleer.OhMyPosh -s winget
 # 下载 nerd 字体
 # 使用
 $ New-Item -Path $PROFILE -Type File -Force
-$ notepad $PROFILE
+$ notepad++ $PROFILE
 $ oh-my-posh init pwsh | Invoke-Expression
 $ . $PROFILE
 $ oh-my-posh disable notice
