@@ -240,6 +240,9 @@ $ .\Arch.exe config --default-user sxh
 [sxh@sxh ~]$ sudo pacman-key --init
 [sxh@sxh ~]$ sudo pacman-key --populate
 [sxh@sxh ~]$ sudo pacman -Syy archlinux-keyring
+# 换源（清华大学源）添加到首行
+[sxh@sxh ~]$ sudo vim /etc/pacman.d/mirrorlist
+Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
 [sxh@sxh ~]$ sudo pacman -Syyu
 [sxh@sxh ~]$ sudo pacman -S git openssh base-devel gdb cmake tree which unzip wget
 ```
@@ -275,3 +278,31 @@ install.packages("ggplot2")
 q()
 $ sudo pacman -S r
 ```
+
+# 九、安装 MySQL
+
+```shell
+$ sudo pacman -S mysql
+$ sudo mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+$ sudo systemctl start mysqld && sudo systemctl enable mysqld
+$ sudo mysql_secure_installation
+$ sudo vim /etc/my.cnf
+[mysqld]
+character-set-server=utf8mb4
+collation-server=utf8mb4_unicode_ci
+
+[client]
+default-character-set=utf8mb4
+
+[mysql]
+default-character-set=utf8mb4
+$ sudo systemctl restart mysqld
+$ mysql -u root -p
+CREATE USER 'sxh'@'localhost' IDENTIFIED BY '123123';
+GRANT ALL PRIVILEGES ON *.* TO 'sxh'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+EXIT;
+$ mysql -u username -p
+EXIT;
+```
+
