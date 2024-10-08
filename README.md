@@ -1,8 +1,6 @@
-# 一、美化
+# 一、Windows-Terminal
 
-## 1.1 oh-my-posh
-
-### 1.1.1 windows 美化
+## 1.1 安装 oh-my-posh
 
 ```shell
 # 安装（注意环境变量）
@@ -16,27 +14,15 @@ $ . $PROFILE
 $ oh-my-posh disable notice
 ```
 
-### 1.1.2 arch linux 美化
+## 1.2 配置 ssh
 
 ```shell
-[sxh@sxh ~]$ mkdir bin
-[sxh@sxh ~]$ curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/bin
-[sxh@sxh ~]$ vim .bashrc
-PATH=$PATH:/home/sxh/bin
-eval "$(oh-my-posh init bash)"
-[sxh@sxh ~]$ . .bashrc
-[sxh@sxh ~]$ oh-my-posh disable notice
-```
-
-# 二、ssh 基础设置
-
-```shell
-[sxh@sxh ~]$ ssh-keygen -t rsa -b 4096 -C "shiyuhanga@163.com"
+$ ssh-keygen -t rsa -b 4096 -C "shiyuhanga@163.com"
 $ cat ~/.ssh/id_rsa.pub
 $ ssh -T git@github.com
 ```
 
-# 三、git 基础设置
+## 1.3 配置 git
 
 ```shell
 $ git config --global user.name "sxhwin"
@@ -44,12 +30,28 @@ $ git config --global user.email "shiyuhanga@163.com"
 $ git config --global color.ui auto
 ```
 
-# 四、wsl 安装及使用
+# 二、WSL-Arch
+
+## 2.1 安装配置 WSL2
 
 ```shell
-用法: wsl.exe [Argument] [Options...][CommandLine]
+$ wsl --update
+$ wsl --status
+# "C:\Users\shiyuhang\.wslconfig"
+[wsl2]
+memory=4GB
+swap=4GB
 
-运行 Linux 二进制文件的参数:
+[experimental]
+autoMemoryReclaim=gradual
+networkingMode=mirrored
+dnsTunneling=true
+firewall=true
+autoProxy=true
+
+# 用法: wsl.exe [Argument] [Options...][CommandLine]
+
+# 运行 Linux 二进制文件的参数:
 
     如果未提供命令行，wsl.exe 将启动默认 shell。
 
@@ -59,7 +61,7 @@ $ git config --global color.ui auto
     --
         按原样传递剩余命令行。
 
-选项:
+# 选项:
     --cd <Directory>
         将指定目录设置为当前工作目录。
         如果使用 ~，则将使用 Linux 用户的主路径。如果路径以 / 字符开头，
@@ -75,7 +77,7 @@ $ git config --global color.ui auto
     --system
         为系统分发启动 shell。
 
-用于管理适用于 Linux 的 Windows 子系统的参数:
+# 用于管理适用于 Linux 的 Windows 子系统的参数:
 
     --help
         显示用法信息。
@@ -140,7 +142,7 @@ $ git config --global color.ui auto
 
             --web-download
                 从 internet 而不是 Microsoft  Store 下载 WSL 的最新版本。
-用于在适用于 Linux 的 Windows 子系统中管理分发的参数:
+# 用于在适用于 Linux 的 Windows 子系统中管理分发的参数:
 
     --export <Distro> <FileName>
         将分发导出为 tar 文件。
@@ -187,34 +189,16 @@ $ git config --global color.ui auto
         取消注册分发并删除根文件系统。
 ```
 
-# 五、Arch 安装及配置
+## 2.2 安装配置 Arch
 
-## 5.1 安装
+### 2.2.1 下载安装
 
 ```shell
 # 下载地址：https://github.com/yuk7/ArchWSL/releases/download/24.4.28.0/Arch.zip
 # 解压后两次双击运行Arch.exe
 ```
 
-## 5.2 配置
-
-### 5.2.1 .wslconfig
-
-```shell
-# "C:\Users\shiyuhang\.wslconfig"
-[wsl2]
-memory=4GB
-swap=4GB
-
-[experimental]
-autoMemoryReclaim=gradual
-networkingMode=mirrored
-dnsTunneling=true
-firewall=true
-autoProxy=true
-```
-
-### 5.2.2 创建用户
+### 2.2.2 配置用户信息
 
 ```shell
 # 给 root 设置密码：123123
@@ -234,7 +218,7 @@ passwd: password updated successfully
 $ .\Arch.exe config --default-user sxh
 ```
 
-### 5.2.3 pacman 设置
+### 2.2.3 配置 pacman
 
 ```shell
 [sxh@sxh ~]$ sudo pacman-key --init
@@ -247,7 +231,35 @@ Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
 [sxh@sxh ~]$ sudo pacman -S git openssh base-devel gdb cmake tree which unzip wget
 ```
 
-# 六、Code
+### 2.2.4 安装 oh-my-posh
+
+```shell
+[sxh@sxh ~]$ mkdir bin
+[sxh@sxh ~]$ curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/bin
+[sxh@sxh ~]$ vim .bashrc
+PATH=$PATH:/home/sxh/bin
+eval "$(oh-my-posh init bash)"
+[sxh@sxh ~]$ . .bashrc
+[sxh@sxh ~]$ oh-my-posh disable notice
+```
+
+### 2.2.5 配置 ssh
+
+```shell
+$ ssh-keygen -t rsa -b 4096 -C "shiyuhanga@163.com"
+$ cat ~/.ssh/id_rsa.pub
+$ ssh -T git@github.com
+```
+
+### 2.2.6 配置 git
+
+```shell
+$ git config --global user.name "sxharch"
+$ git config --global user.email "shiyuhanga@163.com"
+$ git config --global color.ui auto
+```
+
+### 2.2.7 配置仓库
 
 ```shell
 $ mkdir AbortLearing
@@ -261,7 +273,7 @@ $ git push -u origin main --force
 $ git branch --set-upstream-to=origin/main main
 ```
 
-# 七、安装 Python
+### 2.2.8 安装Python
 
 ```shell
 $ wget https://www.python.org/ftp/python/3.11.9/Python-3.11.9.tar.xz && tar -xvf Python-3.11.9.tar.xz && rm -rf *.tar.xz && cd Python-3.11.9
@@ -269,7 +281,7 @@ $ sudo ./configure && sudo make -j 4 && sudo make install
 $ sudo ln -s /usr/local/bin/python3 /usr/local/bin/python
 ```
 
-# 八、安装 R
+### 2.2.9 安装 R
 
 ```shell
 $ sudo pacman -S r
@@ -279,7 +291,7 @@ q()
 $ sudo pacman -S r
 ```
 
-# 九、安装 MySQL
+### 2.2.10 安装 MySQL
 
 ```shell
 $ sudo pacman -S mysql
@@ -306,3 +318,80 @@ $ mysql -u username -p
 EXIT;
 ```
 
+# 三、Vmware-deepin
+
+## 3.1 安装配置 Vmware
+
+```shell
+$ ipconfig
+
+Windows IP 配置
+
+
+无线局域网适配器 本地连接* 1:
+
+   媒体状态  . . . . . . . . . . . . : 媒体已断开连接
+   连接特定的 DNS 后缀 . . . . . . . :
+
+无线局域网适配器 本地连接* 10:
+
+   媒体状态  . . . . . . . . . . . . : 媒体已断开连接
+   连接特定的 DNS 后缀 . . . . . . . :
+
+以太网适配器 VMware Network Adapter VMnet1:
+
+   连接特定的 DNS 后缀 . . . . . . . :
+   本地链接 IPv6 地址. . . . . . . . : fe80::a7e3:e1e:dee:eb6b%62
+   IPv4 地址 . . . . . . . . . . . . : 192.168.11.1
+   子网掩码  . . . . . . . . . . . . : 255.255.255.0
+   默认网关. . . . . . . . . . . . . :
+
+以太网适配器 VMware Network Adapter VMnet8:
+
+   连接特定的 DNS 后缀 . . . . . . . :
+   本地链接 IPv6 地址. . . . . . . . : fe80::bbdf:61c8:5547:767d%63
+   IPv4 地址 . . . . . . . . . . . . : 192.168.88.1
+   子网掩码  . . . . . . . . . . . . : 255.255.255.0
+   默认网关. . . . . . . . . . . . . :
+
+无线局域网适配器 WLAN:
+
+   连接特定的 DNS 后缀 . . . . . . . :
+   IPv6 地址 . . . . . . . . . . . . : 2408:821a:2201:d7c0:9b49:c1a9:f138:c6a3
+   临时 IPv6 地址. . . . . . . . . . : 2408:821a:2201:d7c0:b54a:67dd:2e9:84af
+   本地链接 IPv6 地址. . . . . . . . : fe80::71e2:7eb:574:1778%6
+   IPv4 地址 . . . . . . . . . . . . : 192.168.1.6
+   子网掩码  . . . . . . . . . . . . : 255.255.255.0
+   默认网关. . . . . . . . . . . . . : fe80::1%6
+                                       192.168.1.1
+
+以太网适配器 蓝牙网络连接:
+
+   媒体状态  . . . . . . . . . . . . : 媒体已断开连接
+   连接特定的 DNS 后缀 . . . . . . . :
+
+以太网适配器 以太网:
+
+   媒体状态  . . . . . . . . . . . . : 媒体已断开连接
+   连接特定的 DNS 后缀 . . . . . . . :
+
+以太网适配器 vEthernet (Default Switch):
+
+   连接特定的 DNS 后缀 . . . . . . . :
+   本地链接 IPv6 地址. . . . . . . . : fe80::930b:b57b:fc59:b369%39
+   IPv4 地址 . . . . . . . . . . . . : 172.26.112.1
+   子网掩码  . . . . . . . . . . . . : 255.255.240.0
+   默认网关. . . . . . . . . . . . . :
+
+以太网适配器 vEthernet (WSL (Hyper-V firewall)):
+
+   连接特定的 DNS 后缀 . . . . . . . :
+   本地链接 IPv6 地址. . . . . . . . : fe80::3deb:27b6:90fb:4d3d%50
+   IPv4 地址 . . . . . . . . . . . . : 172.23.240.1
+   子网掩码  . . . . . . . . . . . . : 255.255.240.0
+   默认网关. . . . . . . . . . . . . :
+```
+
+![image-20241008102041655](./README.assets/image-20241008102041655.png)
+
+## 3.2 安装配置 deepin
