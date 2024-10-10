@@ -202,18 +202,18 @@ autoProxy=true
 
 ```shell
 # 给 root 设置密码：123123
-[root@sxh Arch]# passwd
+$ passwd
 New password:
 Retype new password:
 passwd: password updated successfully
 # 创建用户 sxh 并设置密码
-[root@sxh Arch]# echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/wheel
-[root@sxh Arch]# useradd -m -G wheel -s /bin/bash sxh
-[root@sxh Arch]# passwd sxh
+$ echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/wheel
+$ useradd -m -G wheel -s /bin/bash sxh
+$ passwd sxh
 New password:
 Retype new password:
 passwd: password updated successfully
-[root@sxh Arch]# exit
+$ exit
 # 在 Arch.exe 所在文件夹下打开 powershell
 $ .\Arch.exe config --default-user sxh
 ```
@@ -221,26 +221,26 @@ $ .\Arch.exe config --default-user sxh
 ### 2.2.3 配置 pacman
 
 ```shell
-[sxh@sxh ~]$ sudo pacman-key --init
-[sxh@sxh ~]$ sudo pacman-key --populate
-[sxh@sxh ~]$ sudo pacman -Syy archlinux-keyring
+$ sudo pacman-key --init
+$ sudo p$cman-key --populate
+$ sudo pacman -Syy archlinux-keyring
 # 换源（清华大学源）添加到首行
-[sxh@sxh ~]$ sudo vim /etc/pacman.d/mirrorlist
+$ sudo vim /etc/pacman.d/mirrorlist
 Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch
-[sxh@sxh ~]$ sudo pacman -Syyu
-[sxh@sxh ~]$ sudo pacman -S git openssh base-devel gdb cmake tree which unzip wget
+$ sudo pacman -Syyu
+$ sudo pacman -S git openssh base-devel gdb cmake tree which unzip wget
 ```
 
 ### 2.2.4 安装 oh-my-posh
 
 ```shell
-[sxh@sxh ~]$ mkdir bin
-[sxh@sxh ~]$ curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/bin
-[sxh@sxh ~]$ vim .bashrc
+$ mkdir bin
+$ curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/bin
+$ vim .bashrc
 PATH=$PATH:/home/sxh/bin
 eval "$(oh-my-posh init bash)"
-[sxh@sxh ~]$ . .bashrc
-[sxh@sxh ~]$ oh-my-posh disable notice
+$ . .bashrc
+$ oh-my-posh disable notice
 ```
 
 ### 2.2.5 配置 ssh
@@ -355,9 +355,182 @@ EXIT;
 
 ![](./README.assets/deepin%E9%85%8D%E7%BD%AE_4.png)
 
-### 3.3.3 配置远程连接（Windows Terminal）
+### 3.2.3 配置远程连接（Windows Terminal）
+
+#### 1、Windows部分
+
+##### 1、安装 Openssh Server
+
+![image-20241010213236816](./README.assets/image-20241010213236816.png)
+
+##### 2、启动 ssh-agent
+
+![image-20241010213345362](./README.assets/image-20241010213345362.png)
+
+##### 3、生成 ssh 秘钥（已生成）
+
+##### 4、添加私钥到 ssh-agent
 
 ```shell
-# 本地部分
+$ ssh-add .\.ssh\id_rsa
+```
+
+##### 5、配置 ssh config 文件
+
+```shell
+$ cd ~/.ssh
+$ npp config
+Host *
+    ForwardAgent yes
+Host deepin
+    Hostname 192.168.88.88
+    Port 22
+    User sxh
+```
+
+#### 2、Linux 部分
+
+```shell
+# 配置 root 密码
+$ sudo passwd root
+# 安装 vim
+$ sudo apt-get update
+$ sudo apt-get install vim
+# 安装并配置 ssh
+$ sudo apt-get install openssh-server
+$ sudo systemctl start ssh && sudo systemctl enable ssh
+$ ssh-keygen -t rsa -b 4096 -C "shiyuhanga@163.com"
+$ cat ~/.ssh/id_rsa.pub
+$ ssh -T git@github.com
+```
+
+#### 3、继续配置 Windows 部分
+
+##### 1、拷贝 Windows 公钥到 Linux
+
+```shell
+$ cat .\.ssh\id_rsa.pub | ssh deepin 'umask 0077; cat >> .ssh/authorized_keys'
+```
+
+##### 2、创建 Windows Terminal 选项卡
+
+```shell
+# 打开 json 配置文件，增加如下配置
+{
+    "guid": "{b453ae63-4e3d-5e58-b989-0a998ec441b8}",
+    "hidden": false,
+    "name": "deepin",
+    "tabTitle": "deepin",
+    "suppressApplicationTitle": true,
+    "commandline": "ssh deepin"
+}
+```
+
+### 3.2.4 添加软件源并安装基础软件
+
+```shell
+# 添加阿里源
+$ sudo vim /etc/apt/sources.list
+deb [by-hash=force] https://mirrors.aliyun.com/deepin apricot main contrib non-free
+$ sudo apt-get update && sudo apt-get upgrade
+$ sudo apt-get install git gdb cmake tree unzip wget build-essential deepin-sdk
+```
+
+### 3.2.5 配置 git
+
+```shell
+$ git config --global user.name "sxhdeepin"
+$ git config --global user.email "shiyuhanga@163.com"
+$ git config --global color.ui auto
+```
+
+### 3.2.6 apt-get 的常见用法
+
+```shell
+# 更新软件包列表
+sudo apt-get update
+
+# 升级所有可升级的软件包
+sudo apt-get upgrade
+
+# 安装软件包
+# 将 package_name 替换为你想安装的软件包名称
+sudo apt-get install package_name
+
+# 卸载软件包，但保留配置文件
+sudo apt-get remove package_name
+
+# 完全卸载软件包，包括配置文件
+sudo apt-get purge package_name
+
+# 搜索软件包
+# 将 search_query 替换为你的搜索关键词
+apt-get search search_query
+
+# 清理不再需要的软件包
+sudo apt-get autoremove
+
+# 清理下载的软件包文件，释放磁盘空间
+sudo apt-get clean
+
+# 修复损坏的依赖关系
+sudo apt-get install -f
+
+# 显示软件包的详细信息
+# 将 package_name 替换为你想查看的软件包名称
+apt-cache show package_name
+
+# 升级整个系统，包括处理软件包之间的依赖关系
+sudo apt-get dist-upgrade
+
+# 检查是否有损坏的依赖关系
+sudo apt-get check
+```
+
+### 3.2.7 配置 clash
+
+```shell
+$ git clone https://github.com/Elegycloud/clash-for-linux-backup.git
+$ cd clash-for-linux
+$ vim .env
+# Clash 订阅地址
+export CLASH_URL='https://freenode.openrunner.net/uploads/20241010-clash.yaml'
+export CLASH_SECRET=''
+$ sudo bash start.sh
+$ source /etc/profile.d/clash.sh
+$ proxy_on
+# 检查服务端口
+$ netstat -tln | grep -E '9090|789.'
+tcp6       0      0 :::9090                 :::*                    LISTEN
+tcp6       0      0 :::7892                 :::*                    LISTEN
+tcp6       0      0 :::7890                 :::*                    LISTEN
+tcp6       0      0 :::7891                 :::*                    LISTEN
+# 检查环境变量
+$ env | grep -E 'http_proxy|https_proxy'
+https_proxy=http://127.0.0.1:7890
+http_proxy=http://127.0.0.1:7890
+# 以上无问题则配置成功
+# 项目网址：https://github.com/Elegycloud/clash-for-linux-backup
+```
+
+### 3.2.8 安装 oh-my-posh
+
+```shell
+$ mkdir bin
+$ curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/bin
+$ vim .bashrc
+PATH=$PATH:/home/sxh/bin
+eval "$(oh-my-posh init bash)"
+$ . .bashrc
+$ oh-my-posh disable notice
+```
+
+### 3.2.9 配置仓库
+
+```shell
+$ cd
+$ git clone git@github.com:sxh12138/AboutLearing.git
+$ git branch -M main
+$ git branch --set-upstream-to=origin/main main啊啊啊
 ```
 
