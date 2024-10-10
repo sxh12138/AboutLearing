@@ -531,6 +531,5 @@ $ oh-my-posh disable notice
 $ cd
 $ git clone git@github.com:sxh12138/AboutLearing.git
 $ git branch -M main
-$ git branch --set-upstream-to=origin/main main啊啊啊
+$ git branch --set-upstream-to=origin/main main
 ```
-
