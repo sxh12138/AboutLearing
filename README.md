@@ -564,11 +564,3 @@ $ iptables -I INPUT -p tcp --dport 9999 -j ACCEPT
 # 测试
 $ curl google.com
 ```
-
-### 3.2.12 安装 Chrome
-
-### 3.2.13 安装 VSCode
-
-### 3.2.14 安装 Pycharm
-
-### 3.2.15 安装 Typora
