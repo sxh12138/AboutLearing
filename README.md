@@ -550,28 +550,25 @@ EXIT;
 ### 3.2.11 安装 clash
 
 ```shell
+# 安装 ShellCrash
+$ sudo -i
+$ export url='https://fastly.jsdelivr.net/gh/juewuy/ShellCrash@master' && wget -q --no-check-certificate -O /tmp/install.sh $url/install.sh  && bash /tmp/install.sh && source /etc/profile &> /dev/null
+$ crash
+请先设置面板访问秘钥 > clash
+请先修改Socks服务端口(1-65535) > 7890
+请先设置Socks服务密码(账号默认为crash) > clash
+请使用 http://192.168.88.88:9999/ui/#/proxies 管理内置规则
+# 放行端口
+$ sudo apt-get install iptables
+$ iptables -I INPUT -p tcp --dport 9999 -j ACCEPT
+# 测试
+$ curl google.com
 ```
 
 ### 3.2.12 安装 Chrome
 
-```shell
-
-```
-
 ### 3.2.13 安装 VSCode
-
-```shell
-
-```
 
 ### 3.2.14 安装 Pycharm
 
-```shell
-
-```
-
 ### 3.2.15 安装 Typora
-
-```shell
-
-```
