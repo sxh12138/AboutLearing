@@ -314,7 +314,7 @@ CREATE USER 'sxh'@'localhost' IDENTIFIED BY '123123';
 GRANT ALL PRIVILEGES ON *.* TO 'sxh'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 EXIT;
-$ mysql -u username -p
+$ mysql -u sxh -p
 EXIT;
 ```
 
@@ -404,7 +404,7 @@ $ cat ~/.ssh/id_rsa.pub
 $ ssh -T git@github.com
 ```
 
-#### 3、继续配置 Windows 部分
+#### 3、Windows 部分
 
 ##### 1、拷贝 Windows 公钥到 Linux
 
@@ -434,19 +434,7 @@ $ sudo vim /etc/apt/sources.list
 deb [by-hash=force] https://mirrors.aliyun.com/deepin apricot main contrib non-free
 $ sudo apt-get update && sudo apt-get upgrade
 $ sudo apt-get install git gdb cmake tree unzip wget build-essential deepin-sdk
-```
-
-### 3.2.5 配置 git
-
-```shell
-$ git config --global user.name "sxhdeepin"
-$ git config --global user.email "shiyuhanga@163.com"
-$ git config --global color.ui auto
-```
-
-### 3.2.6 apt-get 的常见用法
-
-```shell
+# apt-get 用法
 # 更新软件包列表
 sudo apt-get update
 
@@ -487,33 +475,15 @@ sudo apt-get dist-upgrade
 sudo apt-get check
 ```
 
-### 3.2.7 配置 clash
+### 3.2.5 配置 git
 
 ```shell
-$ git clone https://github.com/Elegycloud/clash-for-linux-backup.git
-$ cd clash-for-linux
-$ vim .env
-# Clash 订阅地址
-export CLASH_URL='https://freenode.openrunner.net/uploads/20241010-clash.yaml'
-export CLASH_SECRET=''
-$ sudo bash start.sh
-$ source /etc/profile.d/clash.sh
-$ proxy_on
-# 检查服务端口
-$ netstat -tln | grep -E '9090|789.'
-tcp6       0      0 :::9090                 :::*                    LISTEN
-tcp6       0      0 :::7892                 :::*                    LISTEN
-tcp6       0      0 :::7890                 :::*                    LISTEN
-tcp6       0      0 :::7891                 :::*                    LISTEN
-# 检查环境变量
-$ env | grep -E 'http_proxy|https_proxy'
-https_proxy=http://127.0.0.1:7890
-http_proxy=http://127.0.0.1:7890
-# 以上无问题则配置成功
-# 项目网址：https://github.com/Elegycloud/clash-for-linux-backup
+$ git config --global user.name "sxhdeepin"
+$ git config --global user.email "shiyuhanga@163.com"
+$ git config --global color.ui auto
 ```
 
-### 3.2.8 安装 oh-my-posh
+### 3.2.6 安装 oh-my-posh
 
 ```shell
 $ mkdir bin
@@ -525,11 +495,83 @@ $ . .bashrc
 $ oh-my-posh disable notice
 ```
 
-### 3.2.9 配置仓库
+### 3.2.7 配置仓库
 
 ```shell
 $ cd
 $ git clone git@github.com:sxh12138/AboutLearing.git
 $ git branch -M main
 $ git branch --set-upstream-to=origin/main main
+```
+
+### 3.2.8 安装Python
+
+```shell
+$ sudo rm -rf /usr/bin/python
+$ sudo rm -rf /usr/bin/python3
+$ wget https://www.python.org/ftp/python/3.11.9/Python-3.11.9.tar.xz && tar -xvf Python-3.11.9.tar.xz && rm -rf *.tar.xz && cd Python-3.11.9 && sudo ./configure && sudo make -j 4 && sudo make install && sudo ln -s /usr/local/bin/python3 /usr/local/bin/python
+```
+
+### 3.2.9 安装 R
+
+```shell
+$ sudo apt-get install r-base
+$ R
+install.packages("ggplot2")
+q()
+$ sudo apt-get install r-base
+```
+
+### 3.2.10 安装 MySQL
+
+```shell
+$ sudo apt-get install mariadb-server
+$ sudo mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+$ sudo systemctl start mysqld && sudo systemctl enable mysqld
+$ sudo mysql_secure_installation
+$ sudo vim /etc/mysql/my.cnf
+[mysqld]
+character-set-server=utf8mb4
+collation-server=utf8mb4_unicode_ci
+[client]
+default-character-set=utf8mb4
+[mysql]
+default-character-set=utf8mb4
+$ sudo systemctl restart mysql
+$ mysql -u root -p
+CREATE USER 'sxh'@'localhost' IDENTIFIED BY '123123';
+GRANT ALL PRIVILEGES ON *.* TO 'sxh'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+EXIT;
+$ mysql -u sxh -p
+EXIT;
+```
+
+### 3.2.11 安装 clash
+
+```shell
+```
+
+### 3.2.12 安装 Chrome
+
+```shell
+
+```
+
+### 3.2.13 安装 VSCode
+
+```shell
+
+```
+
+### 3.2.14 安装 Pycharm
+
+```shell
+
+```
+
+### 3.2.15 安装 Typora
+
+```shell
+
 ```
