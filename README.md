@@ -564,3 +564,61 @@ $ iptables -I INPUT -p tcp --dport 9999 -j ACCEPT
 # 测试
 $ curl google.com
 ```
+
+### 3.2.12 搭建 LNMP 环境以及部署 WordPress
+
+```shell
+# 更新系统
+$ update
+# 编写 hosts
+$ sudo vim /etc/hosts
+192.168.88.1  sxh
+192.168.88.88 deepin
+192.168.88.88 www.sxh.com
+# 安装 nginx
+$ sudo apt-get install nginx
+# 安装MariaDB（已完成）
+# 安装PHP及其扩展
+$ sudo apt-get install php php-fpm php-mysql php-curl php-gd php-mbstring php-xml php-xmlrpc
+# 重启服务并设置开机自启
+$ sudo systemctl restart nginx && sudo systemctl enable nginx
+$ sudo systemctl restart php7.4-fpm && sudo systemctl enable php7.4-fpm
+# 下载并配置 WordPress
+$ cd /tmp
+$ wget https://wordpress.org/latest.tar.gz
+$ tar -zxvf wordpress-6.6.2.tar.gz && rm -rf wordpress-6.6.2.tar.gz
+$ sudo mysql -u sxh -p
+CREATE DATABASE wordpress;
+CREATE USER 'wordpressuser'@'localhost' IDENTIFIED BY '123123';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpressuser'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+$ sudo cp -R /tmp/wordpress/* /var/www/html/ && rm -rf /tmp/wordpress
+$ sudo chown -R www-data:www-data /var/www/html/
+$ sudo find /var/www/html/ -type d -exec chmod 755 {} \;
+$ sudo find /var/www/html/ -type f -exec chmod 644 {} \;
+$ sudo vim /etc/nginx/sites-available/default
+server {
+    listen 80;
+    server_name www.sxh.com;
+
+    root /var/www/html;
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+$ sudo systemctl restart nginx
+$ curl www.sxh.com
+```
+
