@@ -537,10 +537,17 @@ collation-server=utf8mb4_unicode_ci
 default-character-set=utf8mb4
 [mysql]
 default-character-set=utf8mb4
+$ sudo vim /etc/mysql/mariadb.conf.d/50-server.cnf
+bind-address = 0.0.0.0
 $ sudo systemctl restart mysql
+$ ss -antp | grep 3306
+LISTEN     0      80           0.0.0.0:3306         0.0.0.0:*
+$ sudo iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
 $ mysql -u root -p
 CREATE USER 'sxh'@'localhost' IDENTIFIED BY '123123';
-GRANT ALL PRIVILEGES ON *.* TO 'sxh'@'localhost' WITH GRANT OPTION;
+CREATE USER 'sxh'@'%' IDENTIFIED BY '123123';
+GRANT ALL PRIVILEGES ON *.* TO 'sxh'@'localhost' WITH GRANT OPTION; 
+GRANT ALL PRIVILEGES ON *.* TO 'sxh'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 EXIT;
 $ mysql -u sxh -p
